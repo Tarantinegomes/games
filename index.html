@@ -1,302 +1,70 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CS dos Campeões</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="cs-video-shell">
-    <video class="cs-bg-video" autoplay muted loop playsinline>
-      <source src="cs2_header.webm" type="video/webm">
-    </video>
-    <div class="bg-overlay"></div>
-  </div>
+<!doctype html>
+<!-- Pebblepop Prix is a self-contained Three.js racing game, served by Vite. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#94d3de" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="description" content="Race six tiny original karts around a handmade countryside island. Three laps, lively rivals, drifts, and playful surprises." />
+    <title>Pebblepop Prix — A Tiny Island Grand Prix</title>
+    <script type="module" crossorigin src="./assets/index-uenz9eHi.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dwu4GKXz.css">
+  </head>
+  <body>
+    <!-- All 3D geometry and effects are rendered into this viewport by src/main.ts. -->
+    <div id="scene" aria-label="Three-dimensional miniature island racetrack"></div>
+    <div class="screen-tint" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-  <div class="app-shell app-shell-compact">
-    <section class="hero-super-panel glass">
-      <header class="top-nav compact-top-nav unified-top-bar integrated-top-bar">
-        <div class="brand-lockup compact-brand enhanced-brand-lockup single-hero-brand-row">
-          <div class="brand-mark logo-mark enhanced-logo-mark">
-            <img src="logo.png" alt="CS dos Campeões" class="brand-logo-image main-site-logo">
-          </div>
-          <div class="brand-texts enhanced-brand-texts compact-hero-texts">
-            <strong class="brand-title">CS dos Campeões</strong>
-            <span class="brand-subtitle">Monte lobby, sorteie times e acompanhe o rank.</span>
-          </div>
-        </div>
-        <div class="top-nav-actions compact-nav-actions">
-          <a href="ranking.html" class="nav-link">Ranking</a>
-        </div>
-      </header>
+    <header class="site-header" aria-label="Game header">
+      <div class="wordmark" aria-label="Pebblepop Prix">
+        <span class="mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="wordmark-text">PEBBLEPOP <strong>PRIX</strong><small>THE TINY ISLAND GRAND PRIX</small></span>
+      </div>
+      <div class="header-actions">
+        <span class="edition">✦ &nbsp;CLOUDMEADOW CIRCUIT</span>
+        <button id="help-button" class="round-button" type="button" aria-label="Show controls" title="Show controls">?</button>
+        <button id="audio-button" class="round-button" type="button" aria-label="Mute audio" title="Mute audio">♪</button>
+      </div>
+    </header>
 
-      <section class="register-hero compact-register-hero hero-with-brand-overlay merged-hero-block">
-        <div class="hero-brand-bg" aria-hidden="true">
-          <img src="Counter_Strike_2_Logo.png" alt="" class="hero-brand-bg-image">
-        </div>
-
-        <div class="register-card glass-lite enhanced-register-card" id="cadastro">
-          <div class="steam-register-grid">
-            <div class="steam-input-stack">
-              <label for="steamProfileInput">Link do perfil Steam</label>
-              <input id="steamProfileInput" type="url" placeholder="https://steamcommunity.com/id/seuusuario/" autocomplete="url" />
-            </div>
-            <div class="steam-input-stack steam-skill-stack">
-              <label for="playerSkillInput">CSficação</label>
-              <input id="playerSkillInput" type="number" min="0" step="1" placeholder="Ex: 12000" />
-            </div>
-            <button id="addPlayerBtn" class="primary-cta primary-register-btn">Cadastrar</button>
-          </div>
-          <div class="steam-preview hidden compact-steam-preview" id="steamPreview">
-            <img id="steamPreviewAvatar" class="steam-preview-avatar" alt="Avatar Steam" src="" />
-            <div class="steam-preview-info">
-              <strong id="steamPreviewName">Perfil encontrado</strong>
-              <span id="steamPreviewUrl"></span>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- Landing overlay: the right side remains open to the living diorama. -->
+    <section id="menu" class="menu-panel" aria-labelledby="menu-title">
+      <div class="paper-card">
+        <span class="eyebrow"><span class="mini-sun" aria-hidden="true">✺</span> A LITTLE WORLD, A BIG RACE</span>
+        <h1 id="menu-title">READY,<br /><em>SET,</em><br />WHEEE!</h1>
+        <p class="menu-copy">Six tiny racers. One winding island. Three laps to make a little history.</p>
+        <button id="start-button" class="primary-button" type="button">LET'S RACE <span aria-hidden="true">↗</span></button>
+        <div class="menu-foot"><span class="menu-stripe"></span><span>01 TRACK <b>·</b> 06 RACERS <b>·</b> 03 LAPS</span></div>
+      </div>
+      <div class="controls-peek"><span class="key-group"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span> drive <span class="dot">·</span> <kbd>SPACE</kbd> drift <span class="dot">·</span> <kbd>SHIFT</kbd> item</div>
     </section>
 
-    <main class="compact-main-grid">
-      <section class="panel glass player-db-panel compact-panel is-collapsible" id="databasePanel">
-        <div class="panel-header compact-panel-header collapsible-panel-header">
-          <div>
-            <h2>Jogadores cadastrados</h2>
-            <p class="panel-text">Esses jogadores entram no lobby e no rank.</p>
-          </div>
-          <div class="panel-header-actions">
-            <span class="small-pill" id="databaseCount">0 cadastrados</span>
-            <button id="toggleDatabasePanelBtn" class="ghost-btn compact-btn collapse-toggle-btn" type="button" aria-expanded="true" aria-controls="databasePanelBody">Ocultar</button>
-          </div>
-        </div>
-        <div class="collapsible-panel-body" id="databasePanelBody">
-          <div class="name-list-wrap compact-list-wrap database-scroll-wrap">
-            <ul id="databasePlayerList" class="name-list"></ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel glass input-panel compact-panel">
-        <div class="panel-header compact-panel-header">
-          <div>
-            <h2>Lobby atual</h2>
-            <p class="panel-text">Monte os 10 jogadores da partida.</p>
-          </div>
-          <span id="playerCount" class="small-pill">0 / 10</span>
-        </div>
-
-        <div class="actions-row compact-actions-row">
-          <button id="autoAssembleBtn" class="ghost-btn">Auto montar 10</button>
-          <button id="clearBtn" class="ghost-btn">Limpar lobby</button>
-        </div>
-
-        <div class="name-list-wrap compact-list-wrap">
-          <ul id="playerList" class="name-list"></ul>
-        </div>
-      </section>
+    <!-- Race HUD is hidden outside countdown and racing. -->
+    <main id="hud" class="hud hidden" aria-label="Race information">
+      <section class="hud-position" aria-label="Current position"><span class="small-label">POSITION</span><div><strong id="position-value">6</strong><span id="position-suffix">TH</span><span class="out-of"> / 6</span></div></section>
+      <section class="hud-center" aria-label="Lap and race time"><div class="lap-pill"><span class="small-label">LAP</span><strong id="lap-value">1 / 3</strong></div><div class="timer-pill"><span class="small-label">RACE TIME</span><strong id="timer-value">00:00.0</strong></div></section>
+      <section class="hud-item" aria-label="Current item"><span class="small-label">YOUR SURPRISE</span><div class="item-content"><span id="item-icon" aria-hidden="true">✦</span><strong id="item-value">FIND A LANTERN</strong></div><span id="item-hint" class="item-hint">PRESS SHIFT TO USE</span></section>
+      <section id="standings" class="standings" aria-label="Current race standings"></section>
+      <div id="race-toast" class="race-toast" role="status" aria-live="polite"></div>
+      <section class="hud-bottom" aria-label="Driving feedback"><div class="speed-panel"><span class="speed-arc" aria-hidden="true">◉</span><span><strong id="speed-value">0</strong><small>MPH-ish</small></span></div><div id="drift-panel" class="drift-panel"><div class="drift-label"><span id="drift-title">HOLD SPACE TO DRIFT</span><span id="drift-tier">✦ ✦ ✦</span></div><div class="drift-track"><div id="drift-fill"></div></div><small id="boost-label">TURN + DRIFT TO CHARGE A BOOST</small></div></section>
     </main>
 
-    <section class="map-banner glass compact-map-banner" id="mapBanner">
-      <div class="map-banner-image" id="mapBannerImage"></div>
-      <div class="map-banner-content compact-map-content">
-        <div class="map-banner-topline compact-map-topline">
-          <div>
-            <p class="eyebrow">Mapa atual</p>
-            <h2 id="mapNameDisplay">Inferno</h2>
-          </div>
-          <span class="map-chip">Rotação ativa</span>
-        </div>
-        <p id="mapDescription" class="map-description">Clássico, caótico, utilitária voando e amigo gritando no Discord.</p>
-        <div class="map-actions-row">
-          <button id="nextMapBtn" class="ghost-btn">Próximo mapa</button>
-          <button id="randomMapBtn" class="ghost-btn">Sortear mapa</button>
-        </div>
-        <div class="map-roulette hidden" id="mapRoulette">
-          <div class="map-roulette-label">Sorteando mapa...</div>
-          <div class="map-roulette-name" id="mapRouletteName">Inferno</div>
-        </div>
-      </div>
+    <!-- Countdown overlay announces 3–2–1–GO without hiding the track. -->
+    <div id="countdown" class="countdown hidden" aria-live="assertive"><span id="countdown-sub">GET THOSE WHEELS READY</span><strong id="countdown-number">3</strong><span class="countdown-bottom">CLOUDMEADOW CIRCUIT</span></div>
+
+    <!-- The player can take a breather at any time during a local race. -->
+    <section id="pause-panel" class="modal-backdrop hidden" aria-labelledby="pause-title">
+      <div class="modal-card"><span class="eyebrow">A LITTLE PIT STOP</span><h2 id="pause-title">TAKE<br /><em>YOUR TIME.</em></h2><p>The island will wait right here.</p><button id="resume-button" class="primary-button" type="button">BACK TO RACING <span aria-hidden="true">↗</span></button><button id="quit-button" class="text-button" type="button">BACK TO MENU</button></div>
     </section>
 
-    <section class="panel glass arena-panel compact-panel compact-arena-panel">
-      <div class="panel-header compact-panel-header">
-        <div>
-          <h2>Partida</h2>
-          <p class="panel-text">Sorteie os times e registre o resultado.</p>
-        </div>
-        <span class="status-pill" id="statusPill">Aguardando</span>
-      </div>
-
-      <div class="arena-top-controls">
-        <div class="map-select-wrap compact-map-select-wrap">
-          <label for="mapSelect">Mapa</label>
-          <select id="mapSelect"></select>
-        </div>
-
-        <div class="balance-strip compact-balance-strip" id="balanceStrip">
-          <div class="balance-box ct-balance">
-            <span>CT média</span>
-            <strong id="ctAverageDisplay">0</strong>
-          </div>
-          <div class="balance-box diff-balance">
-            <span>Diferença</span>
-            <strong id="balanceDiffDisplay">0</strong>
-          </div>
-          <div class="balance-box t-balance">
-            <span>TR média</span>
-            <strong id="tAverageDisplay">0</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="animation-stage compact-animation-stage" id="animationStage">
-        <div class="scanline"></div>
-        <div class="spinner-core"></div>
-        <div class="roulette-orbit orbit-a"></div>
-        <div class="roulette-orbit orbit-b"></div>
-        <div class="drop-lane ct-lane">
-          <span class="drop-lane-label">CT</span>
-        </div>
-        <div class="drop-lane t-lane">
-          <span class="drop-lane-label">TR</span>
-        </div>
-        <div id="rouletteAvatarCloud" class="roulette-avatar-cloud"></div>
-        <div id="rouletteDropZone" class="roulette-drop-zone"></div>
-        <div id="rouletteNames" class="roulette-names">PRONTO</div>
-        <div class="stage-glow"></div>
-      </div>
-
-      <div class="primary-actions-grid compact-primary-actions split-draw-actions">
-        <button id="shuffleBtn" class="shuffle-btn">
-          <span class="btn-glow"></span>
-          <span class="btn-label">Sortear balanceado</span>
-        </button>
-        <button id="shuffleRandomBtn" class="control-btn random-draw-btn">Sortear normal</button>
-        <button id="rerollBtn" class="control-btn">Sortear novamente</button>
-      </div>
-
-      <div class="primary-actions-grid compact-secondary-actions">
-        <button id="addAfterDrawBtn" class="ghost-btn">Adicionar depois do sorteio</button>
-        <button id="startMatchBtn" class="control-btn start-btn">Começar jogo</button>
-      </div>
-
-      <div class="winner-actions-grid compact-winner-actions">
-        <button id="ctWinBtn" class="control-btn win-btn ct-win">CT venceu</button>
-        <button id="tWinBtn" class="control-btn win-btn t-win">TR venceu</button>
-      </div>
-
-      <div class="match-summary" id="matchSummary">
-        Nenhuma partida ativa. Sorteie os times primeiro e depois comece o jogo.
-      </div>
+    <!-- Final ranking is populated from race state after the human crosses lap 3. -->
+    <section id="results" class="modal-backdrop hidden" aria-labelledby="results-title">
+      <div class="modal-card results-card"><span class="eyebrow">✦ &nbsp;THE CHECKERED FLAG IS YOURS</span><h2 id="results-title">YOU DID<br /><em>THE THING!</em></h2><div class="results-place"><strong id="results-position">1ST</strong><span>OUT OF 6 RACERS</span></div><div class="results-stats"><div><span>FINISH TIME</span><strong id="results-time">00:00.0</strong></div><div><span>BEST LAP</span><strong id="results-best">00:00.0</strong></div></div><div id="results-list" class="results-list" aria-label="Final standings"></div><button id="restart-button" class="primary-button" type="button">ONE MORE RACE <span aria-hidden="true">↗</span></button><button id="results-menu-button" class="text-button" type="button">BACK TO MENU</button></div>
     </section>
 
-    <section class="results-grid compact-results-grid">
-      <article class="team-card glass compact-team-card team-panel-ct">
-        <div class="team-topline">
-          <span class="team-tag ct">Contra-Terroristas</span>
-        </div>
-        <ul id="teamA" class="team-list"></ul>
-      </article>
-
-      <article class="team-card glass compact-team-card team-panel-t">
-        <div class="team-topline">
-          <span class="team-tag t">Terroristas</span>
-        </div>
-        <ul id="teamB" class="team-list"></ul>
-      </article>
-    </section>
-
-    <section class="bottom-grid compact-bottom-grid">
-      <article class="panel glass rank-panel compact-panel">
-        <div class="panel-header compact-panel-header">
-          <div>
-            <h2>Ranking</h2>
-            <p class="panel-text">Pontuação local da galera.</p>
-          </div>
-        </div>
-        <ul id="rankingList" class="ranking-list"></ul>
-      </article>
-
-      <article class="panel glass history-panel compact-panel">
-        <div class="panel-header history-header compact-panel-header">
-          <div>
-            <h2>Histórico</h2>
-            <p class="panel-text">Partidas registradas.</p>
-          </div>
-          <div id="historyAdminActions" class="history-admin-actions hidden"><button id="resetHistoryBtn" class="ghost-btn compact-btn">Resetar dados</button></div>
-        </div>
-        <ul id="historyList" class="history-list"></ul>
-      </article>
-    </section>
-  </div>
-
-  <div class="modal-backdrop hidden" id="editModal">
-    <div class="modal-card glass">
-      <div class="panel-header">
-        <h2>Editar registro da partida</h2>
-        <button id="closeModalBtn" class="ghost-btn compact-btn">Fechar</button>
-      </div>
-
-      <div class="modal-grid">
-        <div>
-          <label for="editMapSelect">Mapa</label>
-          <select id="editMapSelect"></select>
-        </div>
-        <div>
-          <label for="editWinnerSelect">Vencedor</label>
-          <select id="editWinnerSelect">
-            <option value="CT">CT</option>
-            <option value="T">TR</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="modal-grid two-columns-list">
-        <div>
-          <label>Jogadores do CT</label>
-          <textarea id="editCtPlayers" rows="6" placeholder="Um jogador por linha"></textarea>
-        </div>
-        <div>
-          <label>Jogadores do TR</label>
-          <textarea id="editTPlayers" rows="6" placeholder="Um jogador por linha"></textarea>
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button id="saveEditBtn" class="secondary-btn">Salvar alterações</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop hidden" id="skillModal">
-    <div class="modal-card glass skill-modal-card">
-      <div class="panel-header">
-        <h2>Atualizar CSficação</h2>
-        <button id="closeSkillModalBtn" class="ghost-btn compact-btn">Fechar</button>
-      </div>
-
-      <div class="skill-modal-player" id="skillModalPlayer"></div>
-
-      <div class="modal-grid skill-modal-grid">
-        <div>
-          <label for="editSkillInput">Nova CSficação</label>
-          <input id="editSkillInput" type="number" min="0" step="1" placeholder="Ex: 14500" />
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button id="saveSkillBtn" class="secondary-btn">Salvar CSficação</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script src="app.js"></script>
-</body>
+    <!-- Controls sheet is accessible both before and during a race. -->
+    <section id="help-panel" class="modal-backdrop hidden" aria-labelledby="help-title"><div class="modal-card help-card"><button id="help-close-button" class="close-button" type="button" aria-label="Close controls">×</button><span class="eyebrow">THE LITTLE DRIVER'S GUIDE</span><h2 id="help-title">HOW TO<br /><em>WHEEE!</em></h2><dl class="help-list"><div><dt><kbd>W</kbd> / <kbd>↑</kbd></dt><dd>Accelerate</dd></div><div><dt><kbd>S</kbd> / <kbd>↓</kbd></dt><dd>Brake / reverse</dd></div><div><dt><kbd>A</kbd> <kbd>D</kbd> / <kbd>←</kbd> <kbd>→</kbd></dt><dd>Steer</dd></div><div><dt><kbd>SPACE</kbd></dt><dd>Hold in turns; release for a boost</dd></div><div><dt><kbd>SHIFT</kbd></dt><dd>Use a lantern surprise</dd></div><div><dt><kbd>ESC</kbd></dt><dd>Pause / resume</dd></div></dl><p>Cross the striped finish line, complete three laps, and beat five tiny rivals!</p></div></section>
+  </body>
 </html>

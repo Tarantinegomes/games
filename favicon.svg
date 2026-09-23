@@ -1,0 +1,10 @@
+<!-- Original minimal four-petal mark for the Pebblepop Prix browser tab. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Pebblepop Prix</title>
+  <rect width="64" height="64" rx="15" fill="#fff7e7"/>
+  <path d="M12 11h18v19H12z" rx="6" fill="#ffcf7f"/>
+  <path d="M34 11h18v19H34z" fill="#f38c7f"/>
+  <path d="M12 34h18v19H12z" fill="#80cbbc"/>
+  <path d="M34 34h18v19H34z" fill="#83bad4"/>
+  <circle cx="32" cy="32" r="8" fill="#fff7e7"/>
+</svg>
